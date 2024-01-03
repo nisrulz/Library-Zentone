@@ -7,28 +7,30 @@ import com.github.nisrulz.zentone.internal.minBufferSize
 
 interface WaveByteArrayGenerator {
 
-    /**
-     * Generate byte data for tone
-     *
-     * @param freqOfTone
-     * @param sampleRate
-     * @return ByteArray of generated tone
-     */
-    fun generate(
-        freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
-        sampleRate: Int = DEFAULT_SAMPLE_RATE
-    ): ByteArray {
-        val bufferSize = minBufferSize(sampleRate)
-        val samplingInterval = sampleRate / freqOfTone
+  /**
+   * Generate byte data for tone
+   *
+   * @param freqOfTone Frequency of the tone you want to generate, in Hz.
+   * @param sampleRate Number of samples per second, in Hz
+   * @return ByteArray of generated tone
+   */
+  fun generate(
+    freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
+    sampleRate: Int = DEFAULT_SAMPLE_RATE
+  ): ByteArray {
+    val bufferSize = minBufferSize(sampleRate)
 
-        val generatedSnd = ByteArray(bufferSize)
+    // Number of samples per wave cycle
+    val samplingInterval = sampleRate / freqOfTone
 
-        generatedSnd.indices.forEach { i ->
-            generatedSnd[i] = calculateData(i, samplingInterval, DEFAULT_AMPLITUDE)
-        }
+    val generatedSnd = ByteArray(bufferSize)
 
-        return generatedSnd
+    generatedSnd.indices.forEach { i ->
+      generatedSnd[i] = calculateData(i, samplingInterval, DEFAULT_AMPLITUDE)
     }
 
-    fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte
+    return generatedSnd
+  }
+
+  fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte
 }

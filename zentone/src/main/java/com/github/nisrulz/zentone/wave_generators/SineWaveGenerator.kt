@@ -12,10 +12,10 @@ import kotlin.math.sin
  */
 object SineWaveGenerator : WaveByteArrayGenerator {
 
-    override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-        val angle: Double = (Math.PI * index) / samplingInterval
-        return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
-    }
+  override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
+    val angle = 2.0 * Math.PI * index / samplingInterval
+    return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
+  }
 
-    private fun waveFunction(angle: Double): Double = sin(angle)
+  private fun waveFunction(angle: Double): Double = sin(angle)
 }

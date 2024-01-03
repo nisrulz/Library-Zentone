@@ -13,10 +13,10 @@ import kotlin.math.sin
  */
 object SquareWaveGenerator : WaveByteArrayGenerator {
 
-    override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-        val angle: Double = (Math.PI * index) / samplingInterval
-        return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
-    }
+  override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
+    val angle: Double = (Math.PI * index) / samplingInterval
+    return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
+  }
 
-    private fun waveFunction(angle: Double): Double = sign(sin(angle))
+  private fun waveFunction(angle: Double): Double = sign(sin(angle))
 }
