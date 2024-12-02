@@ -6,16 +6,14 @@ import kotlin.math.sin
 /**
  * Sine wave generator
  *
- * Sine Wave: Defined as the sign function
+ * Sine Wave: The most basic and simple waveform, a sine wave has a simple hollow sound.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a>
  */
 object SineWaveGenerator : WaveByteArrayGenerator {
 
-  override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-    val angle = 2.0 * Math.PI * index / samplingInterval
-    return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
+  override var phase: Double = 0.0
+  override fun waveFunction(angle: Double): Double {
+    return sin(angle)
   }
-
-  private fun waveFunction(angle: Double): Double = sin(angle)
 }
