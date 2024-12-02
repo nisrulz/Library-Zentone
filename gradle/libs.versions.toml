@@ -1,11 +1,11 @@
 [versions]
-appCompat = "1.6.1"
+appCompat = "1.7.0"
 cardView  = "1.0.0"
-dokkaGradlePlugin = "1.7.0"
-agpVer = "8.2.0"
+dokkaGradlePlugin = "1.9.10"
+agpVer = "8.2.2"
 gradleMavenPublishPlugin = "0.25.3"
 kotlinGradlePlugin = "1.7.10"
-material = "1.10.0"
+material = "1.12.0"
 coroutinesCore = "1.6.4"
 
 [libraries]
