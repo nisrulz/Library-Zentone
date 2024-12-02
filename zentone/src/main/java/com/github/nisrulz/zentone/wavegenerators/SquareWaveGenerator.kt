@@ -1,7 +1,4 @@
-package com.github.nisrulz.zentone.wave_generators
-
-import kotlin.math.sign
-import kotlin.math.sin
+package com.github.nisrulz.zentone.wavegenerators
 
 /**
  * Square wave generator
@@ -13,9 +10,7 @@ import kotlin.math.sin
  *     href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
  */
 object SquareWaveGenerator : WaveByteArrayGenerator {
-
   override var phase: Double = 0.0
-  override fun waveFunction(angle: Double): Double {
-    return if (angle < Math.PI) 1.0 else -1.0
-  }
+
+  override fun waveFunction(angle: Double): Double = if (angle < Math.PI) 1.0 else -1.0
 }

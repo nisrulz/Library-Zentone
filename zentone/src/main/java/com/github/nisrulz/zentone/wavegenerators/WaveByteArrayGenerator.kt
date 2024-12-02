@@ -1,20 +1,19 @@
-package com.github.nisrulz.zentone.wave_generators
+package com.github.nisrulz.zentone.wavegenerators
 
 import com.github.nisrulz.zentone.DEFAULT_FREQUENCY_HZ
 import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
 import com.github.nisrulz.zentone.internal.minBufferSize
 
 interface WaveByteArrayGenerator {
-
   var phase: Double
 
-  private fun calculateAngle(i: Int, freqOfTone: Float, sampleRate: Int): Double {
-    return ((i.toFloat() / sampleRate) * freqOfTone * 2.0 * Math.PI).toDouble()
-  }
+  private fun calculateAngle(
+    i: Int,
+    freqOfTone: Float,
+    sampleRate: Int,
+  ): Double = ((i.toFloat() / sampleRate) * freqOfTone * 2.0 * Math.PI).toDouble()
 
-  private fun calculateSample(angle: Double): Byte {
-    return (waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
-  }
+  private fun calculateSample(angle: Double): Byte = (waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
 
   /**
    * Generate byte data for tone
@@ -25,7 +24,7 @@ interface WaveByteArrayGenerator {
    */
   fun generate(
     freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
-    sampleRate: Int = DEFAULT_SAMPLE_RATE
+    sampleRate: Int = DEFAULT_SAMPLE_RATE,
   ): ByteArray {
     val bufferSize = minBufferSize(sampleRate)
     val generatedSnd = ByteArray(bufferSize)
@@ -41,4 +40,3 @@ interface WaveByteArrayGenerator {
 
   fun waveFunction(angle: Double): Double
 }
-

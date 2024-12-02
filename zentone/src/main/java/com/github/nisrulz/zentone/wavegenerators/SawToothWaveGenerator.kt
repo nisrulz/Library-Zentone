@@ -1,5 +1,4 @@
-package com.github.nisrulz.zentone.wave_generators
-
+package com.github.nisrulz.zentone.wavegenerators
 
 /**
  *
@@ -7,7 +6,6 @@ package com.github.nisrulz.zentone.wave_generators
  */
 object SawToothWaveGenerator : WaveByteArrayGenerator {
   override var phase: Double = 0.0
-  override fun waveFunction(angle: Double): Double {
-    return 2 * angle / Math.PI - 1
-  }
+
+  override fun waveFunction(angle: Double): Double = 2 * angle / Math.PI - 1
 }

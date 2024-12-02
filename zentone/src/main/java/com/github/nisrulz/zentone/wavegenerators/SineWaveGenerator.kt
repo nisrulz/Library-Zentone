@@ -1,7 +1,6 @@
-package com.github.nisrulz.zentone.wave_generators
+package com.github.nisrulz.zentone.wavegenerators
 
 import kotlin.math.sin
-
 
 /**
  * Sine wave generator
@@ -11,9 +10,7 @@ import kotlin.math.sin
  * @see <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a>
  */
 object SineWaveGenerator : WaveByteArrayGenerator {
-
   override var phase: Double = 0.0
-  override fun waveFunction(angle: Double): Double {
-    return sin(angle)
-  }
+
+  override fun waveFunction(angle: Double): Double = sin(angle)
 }
