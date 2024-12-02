@@ -27,101 +27,102 @@ import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
 
 class MainActivity : AppCompatActivity() {
 
-    private val zenTone = ZenTone()
+	private val zenTone = ZenTone()
 
-    private lateinit var binding: ActivityMainBinding
+	private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.apply {
-            setContentView(root)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		binding = ActivityMainBinding.inflate(layoutInflater)
+		binding.apply {
+			setContentView(root)
 
-            myFAB.setOnClickListener {
-                handlePlayPauseState(binding)
-            }
-            setupFreqSeekbar(this)
-            setupVolumeSeekbar(this)
-        }
-    }
+			myFAB.setOnClickListener {
+				handlePlayPauseState(binding)
+			}
+			setupFreqSeekbar(this)
+			setupVolumeSeekbar(this)
+		}
+	}
 
-    override fun onDestroy() {
-        super.onDestroy()
-        zenTone.release()
-    }
+	override fun onDestroy() {
+		super.onDestroy()
+		zenTone.release()
+	}
 
-    private fun setupFreqSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarFreq.max = 22000
+	private fun setupFreqSeekbar(binding: ActivityMainBinding) {
+		binding.apply {
+			seekBarFreq.max = 22000
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarFreq.min = MIN_FREQUENCY.toInt()
-            }
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				seekBarFreq.min = MIN_FREQUENCY.toInt()
+			}
 
-            seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextFreq.setText(progress.toString())
-                }
+			seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+				override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+					editTextFreq.setText(progress.toString())
+				}
 
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
+				override fun onStartTrackingTouch(seekBar: SeekBar) {
+					stopPlayingAudio(binding)
+				}
 
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
+				override fun onStopTrackingTouch(seekBar: SeekBar) {
+					handlePlayPauseState(binding)
+				}
+			})
+		}
+	}
 
-    private fun setupVolumeSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarVolume.max = 100
+	private fun setupVolumeSeekbar(binding: ActivityMainBinding) {
+		binding.apply {
+			seekBarVolume.max = 100
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarVolume.min = 0
-            }
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				seekBarVolume.min = 0
+			}
 
-            seekBarVolume.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextVolume.setText(progress.toString())
-                }
+			seekBarVolume.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+				override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+					editTextVolume.setText(progress.toString())
+				}
 
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
+				override fun onStartTrackingTouch(seekBar: SeekBar) {
+					stopPlayingAudio(binding)
+				}
 
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
+				override fun onStopTrackingTouch(seekBar: SeekBar) {
+					handlePlayPauseState(binding)
+				}
+			})
+		}
+	}
 
-    private fun stopPlayingAudio(binding: ActivityMainBinding) {
-        binding.apply {
-            zenTone.stop()
-            myFAB.setImageResource(R.drawable.play)
-        }
-    }
+	private fun stopPlayingAudio(binding: ActivityMainBinding) {
+		binding.apply {
+			zenTone.stop()
+			myFAB.setImageResource(R.drawable.play)
+		}
+	}
 
-    private fun handlePlayPauseState(binding: ActivityMainBinding) {
-        binding.apply {
-            when {
-                zenTone.isPlaying -> {
-                    stopPlayingAudio(this)
-                }
-                else -> {
-                    val freq = editTextFreq.text.toString().toFloat()
-                    val volume = editTextVolume.text.toString().toInt()
-                    zenTone.play(
-                        frequency = freq,
-                        volume = volume,
-                        waveByteArrayGenerator = SineWaveGenerator
-                    )
-                    myFAB.setImageResource(R.drawable.stop)
-                }
-            }
-        }
-    }
+	private fun handlePlayPauseState(binding: ActivityMainBinding) {
+		binding.apply {
+			when {
+				zenTone.isPlaying -> {
+					stopPlayingAudio(this)
+				}
+
+				else              -> {
+					val freq = editTextFreq.text.toString().toFloat()
+					val volume = editTextVolume.text.toString().toInt()
+					zenTone.play(
+						frequency = freq,
+						volume = volume,
+						waveByteArrayGenerator = SineWaveGenerator
+					)
+					myFAB.setImageResource(R.drawable.stop)
+				}
+			}
+		}
+	}
 }
